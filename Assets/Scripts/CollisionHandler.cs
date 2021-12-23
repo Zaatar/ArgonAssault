@@ -12,7 +12,11 @@ public class CollisionHandler : MonoBehaviour
         Debug.Log($"{other.gameObject.name} collided with {gameObject.name} and this caused a trigger!");
         ps_ExplosionVFX.Play();
         gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.GetComponent<BoxCollider>().enabled = false;
+        BoxCollider[] boxColliders = gameObject.GetComponentsInChildren<BoxCollider>();
+        foreach(BoxCollider collider in boxColliders)
+        {
+            collider.enabled = false;
+        }
         gameObject.GetComponent<PlayerController>().enabled = false;
         Invoke("ReloadLevel", reloadLevelDelay);
     }
